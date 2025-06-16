@@ -33,6 +33,15 @@ app.use(async (ctx, next) => {
 const path = require('path');
 
 const publicPath = path.join(__dirname, '../public');
+// Serve static files but prevent caching of the main HTML file so
+// the browser always requests the latest version after each deployment.
+app.use(async (ctx, next) => {
+  await next();
+  if (ctx.path === '/' || ctx.path.endsWith('index.html')) {
+    ctx.set('Cache-Control', 'no-cache');
+  }
+});
+
 app.use(require('koa-static')(publicPath))
 
 // logger
