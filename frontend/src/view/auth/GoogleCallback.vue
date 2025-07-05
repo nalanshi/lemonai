@@ -61,7 +61,7 @@ onMounted(async () => {
       const isClient = import.meta.env.VITE_IS_CLIENT === 'true';
       const redirectUri = isClient
       ? import.meta.env.VITE_GOOGLE_REDIRECT_URI_ELECTRON
-      : 'http://localhost:5005/api/users/auth/google'; // Electron 主进程处理
+      : `${window.location.origin}/api/users/auth/google`; // Electron 主进程处理
 
       // const redirectUri = 'http://localhost:5005/api/users/auth/google';
       console.log("redirectUri",redirectUri)
