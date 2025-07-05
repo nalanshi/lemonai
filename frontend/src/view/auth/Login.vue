@@ -294,8 +294,8 @@ const handleGoogleLogin = () => {
     loading.value = true;
     const isClient = import.meta.env.VITE_IS_CLIENT === 'true';
     const redirectUri = isClient
-      ? import.meta.env.VITE_GOOGLE_REDIRECT_URI_ELECTRON// Electron 主进程处理
-      : 'http://localhost:5005/api/users/auth/google'; 
+      ? import.meta.env.VITE_GOOGLE_REDIRECT_URI_ELECTRON // Electron 主进程处理
+      : `${window.location.origin}/api/users/auth/google`;
     const clientId = '973572698649-hbp15ju1nhlsja1k2gbqktmrulk0hopp.apps.googleusercontent.com';
     const scope = encodeURIComponent('profile email');
     const responseType = 'code';
