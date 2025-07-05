@@ -152,7 +152,7 @@ const service = {
   },
   
   isLoggedIn() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('access_token');
   },
 
   //请求谷歌 校验 code
