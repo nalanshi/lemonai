@@ -59,9 +59,10 @@ onMounted(async () => {
   if (urlParams.has('code')) {
     try {
       const isClient = import.meta.env.VITE_IS_CLIENT === 'true';
+      const redirectUriBase = import.meta.env.VITE_SERVICE_URL || window.location.origin;
       const redirectUri = isClient
       ? import.meta.env.VITE_GOOGLE_REDIRECT_URI_ELECTRON
-      : `${window.location.origin}/api/users/auth/google`; // Electron 主进程处理
+      : `${redirectUriBase}/api/users/auth/google`; // Electron 主进程处理
 
       // const redirectUri = 'http://localhost:5005/api/users/auth/google';
       console.log("redirectUri",redirectUri)
