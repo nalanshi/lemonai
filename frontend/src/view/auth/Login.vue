@@ -293,13 +293,15 @@ const handleGoogleLogin = () => {
   try {
     loading.value = true;
     const isClient = import.meta.env.VITE_IS_CLIENT === 'true';
+    const redirectUriBase = import.meta.env.VITE_SERVICE_URL || window.location.origin;
     const redirectUri = isClient
-      ? import.meta.env.VITE_GOOGLE_REDIRECT_URI_ELECTRON// Electron 主进程处理
-      : 'http://localhost:5005/api/users/auth/google'; 
+      ? import.meta.env.VITE_GOOGLE_REDIRECT_URI_ELECTRON // Electron 主进程处理
+      : `${redirectUriBase}/api/users/auth/google`;
     const clientId = '973572698649-hbp15ju1nhlsja1k2gbqktmrulk0hopp.apps.googleusercontent.com';
     const scope = encodeURIComponent('profile email');
     const responseType = 'code';
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&access_type=offline&prompt=consent`;
+    const encodedRedirect = encodeURIComponent(redirectUri);
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${encodedRedirect}&scope=${scope}&response_type=${responseType}&access_type=offline&prompt=consent`;
     window.location.href = googleAuthUrl;
   } catch (error) {
     message.error(t('auth.googleLoginFailed'));
